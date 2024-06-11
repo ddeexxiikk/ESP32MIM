@@ -1,12 +1,12 @@
 #include "LedBlinking.h"
 #include "Buzzer.h"
 #include "Timer.h"
-//#include "MotionSensor.h"
 #include "ADXL345.h"
 #include <WiFi.h>
 #include <Adafruit_Sensor.h>
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
+//#include "MotionSensor.h"
 
 // Dane sieci Wi-Fi
 const char* ssid = "...";
@@ -101,20 +101,21 @@ void loop(void)
     }
     else
     {
-      //Sprawdzamy czy wartości zmieniły się o więcej niż 0.3 wartości, 
+      //Sprawdzamy czy wartości zmieniły się o więcej niż 0.25 wartości, 
       //jeśli tak to ustawiamy flagę isOkay na 0 i zapalamy diodę oraz uruchamiamy buzzera
-      if (abs(accelerometer_x - prev_accelerometer_x) > 0.3 ||
-          abs(accelerometer_y - prev_accelerometer_y) > 0.3 ||
-          abs(accelerometer_z - prev_accelerometer_z) > 0.3)
+      if (abs(accelerometer_x - prev_accelerometer_x) > 0.25 ||
+          abs(accelerometer_y - prev_accelerometer_y) > 0.25 ||
+          abs(accelerometer_z - prev_accelerometer_z) > 0.25)
       {
         isOkay = 0;
-        setBuzzer();
         blinkLed();
+        setBuzzer(4, isOkay);
       }
       else
       {
         isOkay = 1;
         turnOffLed();
+        setBuzzer(4, isOkay);
       }
 
       //Zapisujemy bieżące wartości jako poprzednie do następnego porównania
