@@ -6,17 +6,18 @@
 #include <Adafruit_Sensor.h>
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
+#include "globals.h"
 //#include "MotionSensor.h"
 
 // Dane sieci Wi-Fi
-const char* ssid = "...";
-const char* password = "...";
+const char* ssid = "GOTHAM NET";
+const char* password = "DARK21B=bat#&";
 
 // Dane bazy danych MySQL
-const char* server = "...";  // Nazwa hosta serwera MySQL
-char user[] = "...";                       // Użytkownik MySQL
-char password_db[] = "...";                // Hasło MySQL
-char database[] = "...";                   // Nazwa bazy danych
+const char* server = "sql7.freesqldatabase.com";  // Nazwa hosta serwera MySQL
+char user[] = "sql7713123";                       // Użytkownik MySQL
+char password_db[] = "4e7XEgm3UV";                // Hasło MySQL
+char database[] = "sql7713123";                   // Nazwa bazy danych
 
 // Zmienne globalne do przechowywania poprzednich wartości akcelerometru
 float prev_accelerometer_x = 0;
@@ -45,6 +46,7 @@ void setup(void)
   setupLed();
   setupSensor();
   //setMotionSensor(PIN_TO_SENSOR);
+  setupTimer();
 
   //Łaczymy się z Wi-Fi
   Serial.println("Łączenie z Wi-Fi...");
@@ -72,7 +74,7 @@ void setup(void)
     
     // Wybór bazy danych
     MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
-    cur_mem->execute("USE ...");
+    cur_mem->execute("USE sql7713123");
     delete cur_mem;
   } 
   else 
@@ -101,21 +103,17 @@ void loop(void)
     }
     else
     {
-      //Sprawdzamy czy wartości zmieniły się o więcej niż 0.25 wartości, 
+      //Sprawdzamy czy wartości zmieniły się o więcej niż 0.3 wartości, 
       //jeśli tak to ustawiamy flagę isOkay na 0 i zapalamy diodę oraz uruchamiamy buzzera
-      if (abs(accelerometer_x - prev_accelerometer_x) > 0.25 ||
-          abs(accelerometer_y - prev_accelerometer_y) > 0.25 ||
-          abs(accelerometer_z - prev_accelerometer_z) > 0.25)
+      if (abs(accelerometer_x - prev_accelerometer_x) > 0.2 ||
+          abs(accelerometer_y - prev_accelerometer_y) > 0.2 ||
+          abs(accelerometer_z - prev_accelerometer_z) > 0.2)
       {
         isOkay = 0;
-        blinkLed();
-        setBuzzer(4, isOkay);
       }
       else
       {
         isOkay = 1;
-        turnOffLed();
-        setBuzzer(4, isOkay);
       }
 
       //Zapisujemy bieżące wartości jako poprzednie do następnego porównania

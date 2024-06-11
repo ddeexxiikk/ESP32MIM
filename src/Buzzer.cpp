@@ -1,6 +1,5 @@
 #include "Buzzer.h"
-
-//d4
+#include "globals.h"
 
 void setupBuzzer(uint8_t gpio)
 {
@@ -8,7 +7,7 @@ void setupBuzzer(uint8_t gpio)
     digitalWrite(gpio, HIGH);
 }
 
-void setBuzzer(uint8_t gpio, int isOkay)
+void setBuzzer(uint8_t gpio)
 {
      if (isOkay == 0)
         digitalWrite(gpio, LOW); // Włącz buzzer, gdy isOkay wynosi 0

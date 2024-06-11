@@ -1,4 +1,5 @@
 #include "LedBlinking.h"
+#include "globals.h"
 
 void setupLed(uint8_t gpio)
 {
@@ -7,10 +8,8 @@ void setupLed(uint8_t gpio)
 
 void blinkLed(uint8_t gpio)
 {
-    digitalWrite(gpio, !digitalRead(gpio));
-}
-
-void turnOffLed(uint8_t gpio)
-{
-    digitalWrite(gpio, LOW);
+    if (isOkay == 0)
+        digitalWrite(gpio, HIGH);
+    else
+        digitalWrite(gpio, LOW);
 }

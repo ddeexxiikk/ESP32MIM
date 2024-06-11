@@ -2,6 +2,7 @@
 #include "LedBlinking.h"
 #include "Buzzer.h"
 #include "ADXL345.h"
+#include "globals.h"
 
 hw_timer_t* timer = NULL;
 
