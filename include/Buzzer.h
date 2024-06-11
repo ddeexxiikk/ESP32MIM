@@ -4,6 +4,6 @@
 #include <Wire.h>
 
 void setupBuzzer(uint8_t gpio = 4);
-void setBuzzer(uint8_t gpio = 4, int isOkay = 1);
+void setBuzzer(uint8_t gpio = 4);
 
 #endif

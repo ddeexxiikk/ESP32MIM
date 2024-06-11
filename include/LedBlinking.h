@@ -5,6 +5,5 @@
 
 void setupLed(uint8_t gpio = 2);
 void blinkLed(uint8_t gpio = 2);
-void turnOffLed(uint8_t gpio = 2);
 
 #endif
